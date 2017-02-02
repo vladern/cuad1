@@ -94,3 +94,45 @@ TComplejo TComplejo::operator*(double num)
     TComplejo nuevo = TComplejo(re,im);
     return nuevo;
 }
+    //IUALDAD de números complejos
+	bool TComplejo::operator==(const TComplejo& num)
+    {
+        if(this->re==num.re && this->im==num.im)
+        {
+            return true;
+        }
+        return false;
+    }
+    //DESIGUALDAD de números complejos
+	bool TComplejo::operator!=(const TComplejo& num)
+    {
+        if(this->re==num.re && this->im==num.im)
+        {
+            return false;
+        }
+        return true;
+    }
+    // Calcula el Argumento (en Radianes)
+	double Arg(void)
+    {
+        const double PI = std::atan(1.0)*4;
+        double alfa = atan(this->im/this->re);
+        if(this->im>0 && this->re<0)// b/-a
+        {
+            return PI-alfa;
+        }else if(this->im<0 && this->re<0) // -b/-a
+        {
+            return PI+alfa;
+        }else if(this->im<0 && this->re>0) // -b/a
+        {
+            return (2*PI)-alfa;
+        }else // a/b
+        {
+            return alfa;
+        }
+    } 
+    // Calcula el Módulo 
+	double Mod(void)
+    {
+       return sqrt(pow(this->re,2)+pow(im,2));
+    }   

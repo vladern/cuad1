@@ -11,6 +11,7 @@
 #include<string.h>
 #include<stdio.h>
 #include <ctype.h>
+#include <cmath>
 using namespace std;
 class TComplejo
 {
@@ -38,27 +39,24 @@ public:
 	TComplejo operator-(double);
 	TComplejo operator*(double);
 	//Otros operadores
-	bool operator==(TComplejo&);//IUALDAD de números complejos
-	bool operator!=(TComplejo&);//DESIGUALDAD de números complejos
+	bool operator==(const TComplejo&);//IUALDAD de números complejos
+	bool operator!=(const TComplejo&);//DESIGUALDAD de números complejos
 
-	double Re();//Devuelve parte real
-	double Im();//Devuelve parte imaginaria
+	double Re(){return this->re;};//Devuelve parte real
+	double Im(){return this->im;};//Devuelve parte imaginaria
 
-	void Re(double); // Modifica PARTE REAL
-	void Im(double); // Modifica PARTE IMAGINARIA
+	void Re(double re){this->re=re;}; // Modifica PARTE REAL
+	void Im(double im){this->im=im;}; // Modifica PARTE IMAGINARIA
 
 	double Arg(void); // Calcula el Argumento (en Radianes)
 	double Mod(void); // Calcula el Módulo
+	
 	void negativo(double&,double&);//Convierte el zero negativo(-0.0) a positivo(0.0)si es necesario
 
 	// Sobrecarga del operador SALIDA
 	friend ostream & operator<<(ostream &, TComplejo &);
-
 	friend TComplejo operator+ (double ,const TComplejo&);
 	friend TComplejo operator- (double ,const TComplejo&);
 	friend TComplejo operator* (double ,const TComplejo&);
-
 };
-
 #endif /* TCOMPLEJO_H_ */
-
