@@ -7,6 +7,7 @@
 #ifndef TCOMPLEJO_H_
 #define TCOMPLEJO_H_
 #include<iostream>
+#include<ostream>
 #include<stdlib.h>
 #include<string.h>
 #include<stdio.h>
@@ -42,11 +43,11 @@ public:
 	bool operator==(const TComplejo&);//IUALDAD de números complejos
 	bool operator!=(const TComplejo&);//DESIGUALDAD de números complejos
 
-	double Re(){return this->re;};//Devuelve parte real
-	double Im(){return this->im;};//Devuelve parte imaginaria
+	double Re()const{return this->re;};//Devuelve parte real
+	double Im()const{return this->im;};//Devuelve parte imaginaria
 
-	void Re(double re){this->re=re;}; // Modifica PARTE REAL
-	void Im(double im){this->im=im;}; // Modifica PARTE IMAGINARIA
+	void Re(double re) {this->re=re;}; // Modifica PARTE REAL
+	void Im(double im) {this->im=im;}; // Modifica PARTE IMAGINARIA
 
 	double Arg(void); // Calcula el Argumento (en Radianes)
 	double Mod(void); // Calcula el Módulo

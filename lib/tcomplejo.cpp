@@ -113,10 +113,11 @@ TComplejo TComplejo::operator*(double num)
         return true;
     }
     // Calcula el Argumento (en Radianes)
-	double Arg(void)
+	double TComplejo::Arg(void)
     {
         const double PI = std::atan(1.0)*4;
-        double alfa = atan(this->im/this->re);
+        double div = (this->im / this->re);
+        double alfa = atan(div);
         if(this->im>0 && this->re<0)// b/-a
         {
             return PI-alfa;
@@ -132,7 +133,14 @@ TComplejo TComplejo::operator*(double num)
         }
     } 
     // Calcula el Módulo 
-	double Mod(void)
+	double TComplejo::Mod(void)
     {
        return sqrt(pow(this->re,2)+pow(im,2));
-    }   
+    }
+    
+    ostream & operator<<(ostream &os,const TComplejo &num)
+    {
+
+        os<<"("<<num.Re()<<" "<<num.Im()<<")";
+        return os;
+    }
