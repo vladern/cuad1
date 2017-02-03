@@ -7,5 +7,9 @@ using namespace std;
 int
 main(void)
 {
-
+	TComplejo nuevo0 = TComplejo(10,15);
+	TComplejo nuevo1 = TComplejo(15,6);
+	TComplejo nuevo2 = nuevo0 * nuevo1;
+	cout<<nuevo2.Re()<<","<<nuevo2.Im()<<endl;
+	cout<<nuevo2<<endl;
 }
