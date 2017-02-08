@@ -61,9 +61,9 @@ TComplejo TComplejo::operator-(const TComplejo& num)
 }
 TComplejo TComplejo::operator*(const TComplejo& num)
 {
-    //negativo(num.re,num.im);
-    double re = this->re * num.re;
-    double im = this->im * num.im;
+    //(a+bi)*(c+di)=(ac-bd)+(ad+bc)i
+    double re = (this->Re()*num.Re())-(this->Im()*num.Im());
+    double im = ((this->Re()*num.Im())+(this->Im()*num.Re()));
     TComplejo nuevo(re,im);
     return nuevo;
 }
