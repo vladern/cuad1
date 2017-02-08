@@ -5,7 +5,7 @@
  */
 
 #ifndef TCOMPLEJO_H_
-#define COMPLEJO_H_
+#define TCOMPLEJO_H_
 #include<iostream>
 #include<ostream>
 #include<stdlib.h>
