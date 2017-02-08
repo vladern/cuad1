@@ -47,18 +47,16 @@ TComplejo& TComplejo::operator = (const TComplejo& num)
 // SOBRECARGA DE OPERADORES ARITMÉTICOS;
 TComplejo TComplejo::operator+(const TComplejo& num)
 {
-    //negativo(num.re,num.im);
-    double re = this->re + num.re;
-    double im = this->im + num.im;
-    TComplejo nuevo(re,im);
+    TComplejo nuevo; // objeto auxiliar
+    nuevo.im = this->im+num.im;
+    nuevo.re = this->re+num.re;
     return nuevo;
 }
 TComplejo TComplejo::operator-(const TComplejo& num)
 {
-    //negativo(num.re,num.im);
-    double re = this->re - num.re;
-    double im = this->im - num.im;
-    TComplejo nuevo(re,im);
+    TComplejo nuevo; // objeto auxiliar
+    nuevo.im = this->im-num.Im();
+    nuevo.re = this->re-num.Re();
     return nuevo;
 }
 TComplejo TComplejo::operator*(const TComplejo& num)
@@ -125,6 +123,7 @@ TComplejo TComplejo::operator*(double num)
     {
         const double PI = std::atan(1.0)*4;
         double div = (this->im / this->re);
+        if(div<0){div=div*(-1);}
         double alfa = atan(div);
         if(this->im>0 && this->re<0)// b/-a
         {
