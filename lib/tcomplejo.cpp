@@ -5,10 +5,9 @@
  */
  #include"tcomplejo.h"
 //Constructor de copia
- TComplejo::TComplejo(const TComplejo& num)
+ TComplejo::TComplejo(TComplejo& num)
  {   
-     this->re=num.re;
-     this->im=num.im;
+        this->Copia(num);
  }
  TComplejo::~TComplejo()
  {
@@ -28,12 +27,21 @@
          re=0.0;
      }
  }
+void TComplejo::Copia(const TComplejo& num)
+{
+        this->re=num.re;
+        this->im=num.im;
+}
 // Sobrecarga del operador asignación
 TComplejo& TComplejo::operator = (const TComplejo& num)
 {
-    //negativo(num.re,num.im);
-    this->re=num.re;
-    this->im=num.im;
+    if(this != &num)
+    {
+        //lo destruyo
+        this->~TComplejo();
+        // y lo copio
+        this->Copia(num);
+    }
     return *this;
 }
 // SOBRECARGA DE OPERADORES ARITMÉTICOS;
@@ -42,7 +50,7 @@ TComplejo TComplejo::operator+(const TComplejo& num)
     //negativo(num.re,num.im);
     double re = this->re + num.re;
     double im = this->im + num.im;
-    TComplejo nuevo = TComplejo(re,im);
+    TComplejo nuevo(re,im);
     return nuevo;
 }
 TComplejo TComplejo::operator-(const TComplejo& num)
@@ -50,7 +58,7 @@ TComplejo TComplejo::operator-(const TComplejo& num)
     //negativo(num.re,num.im);
     double re = this->re - num.re;
     double im = this->im - num.im;
-    TComplejo nuevo = TComplejo(re,im);
+    TComplejo nuevo(re,im);
     return nuevo;
 }
 TComplejo TComplejo::operator*(const TComplejo& num)
@@ -58,7 +66,7 @@ TComplejo TComplejo::operator*(const TComplejo& num)
     //negativo(num.re,num.im);
     double re = this->re * num.re;
     double im = this->im * num.im;
-    TComplejo nuevo = TComplejo(re,im);
+    TComplejo nuevo(re,im);
     return nuevo;
 }
 TComplejo TComplejo::operator+(double num)
@@ -69,7 +77,7 @@ TComplejo TComplejo::operator+(double num)
     }
     double re = this->re + num;
     double im = this->im + 0;
-    TComplejo nuevo = TComplejo(re,im);
+    TComplejo nuevo(re,im);
     return nuevo;
 }
 TComplejo TComplejo::operator-(double num)
@@ -80,7 +88,7 @@ TComplejo TComplejo::operator-(double num)
     }
     double re = this->re - num;
     double im = this->im - 0;
-    TComplejo nuevo = TComplejo(re,im);
+    TComplejo nuevo(re,im);
     return nuevo;
 }
 TComplejo TComplejo::operator*(double num)
@@ -91,7 +99,7 @@ TComplejo TComplejo::operator*(double num)
     }
     double re = this->re * num;
     double im = this->im * 0;
-    TComplejo nuevo = TComplejo(re,im);
+    TComplejo nuevo(re,im);
     return nuevo;
 }
     //IUALDAD de números complejos
@@ -145,15 +153,16 @@ TComplejo TComplejo::operator*(double num)
     }
     TComplejo operator+ (double re,const TComplejo& num)
     {
-        TComplejo nuevo = TComplejo(re+num.Re(),0+num.Im());
+        TComplejo nuevo(re+num.Re(),0+num.Im());
         return nuevo;
     }
 	TComplejo operator- (double re,const TComplejo& num)
     {
-        TComplejo nuevo = TComplejo(re-num.Re(),0-num.Im());
+        TComplejo nuevo(re-num.Re(),0-num.Im());
         return nuevo;
     }
 	TComplejo operator* (double re,const TComplejo& num)
     {
-        TComplejo nuevo = TComplejo(re*num.Re(),0);
+        TComplejo nuevo(re*num.Re(),0);
+        return nuevo;
     }

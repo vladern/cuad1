@@ -27,9 +27,11 @@ public:
 	//Constructor a partir de la PARTE REAL e IMAGINARIA
 	TComplejo (double re, double im){this->re=re;this->im=im;};
 	//Constructor copia
-	TComplejo (const TComplejo&);
+	TComplejo (TComplejo&);
 	//Destructor
 	~TComplejo();
+	//copia
+	void Copia(const TComplejo&);
 	// Sobrecarga del operador asignación
 	TComplejo& operator= (const TComplejo&);
 	// SOBRECARGA DE OPERADORES ARITMÉTICOS;
@@ -55,7 +57,7 @@ public:
 	void negativo(double&,double&);//Convierte el zero negativo(-0.0) a positivo(0.0)si es necesario
 
 	// Sobrecarga del operador SALIDA
-	friend ostream & operator<<(ostream &, TComplejo &);
+	friend ostream & operator<<(ostream &,const TComplejo &);
 	friend TComplejo operator+ (double ,const TComplejo&);
 	friend TComplejo operator- (double ,const TComplejo&);
 	friend TComplejo operator* (double ,const TComplejo&);
