@@ -95,8 +95,9 @@ TComplejo TComplejo::operator*(double num)
     {
         num=0.0;
     }
-    double re = this->re * num;
-    double im = this->im * 0;
+    //(a+bi)*(c+di)=(ac-bd)+(ad+bc)i
+    double re = this->Re()*num;
+    double im = 0;
     TComplejo nuevo(re,im);
     return nuevo;
 }
@@ -150,18 +151,18 @@ TComplejo TComplejo::operator*(double num)
         os<<"("<<num.Re()<<" "<<num.Im()<<")";
         return os;
     }
-    TComplejo operator+ (double re,const TComplejo& num)
+   /* TComplejo operator+ (double re,const TComplejo& num) //no entiendo para que sirven
     {
-        TComplejo nuevo(re+num.Re(),0+num.Im());
+        TComplejo nuevo(this->Re()+num.Re(),0+num.Im());
         return nuevo;
     }
-	TComplejo operator- (double re,const TComplejo& num)
+	TComplejo operator-(double re,const TComplejo& num)
     {
-        TComplejo nuevo(re-num.Re(),0-num.Im());
+        TComplejo nuevo(this->Re()-num.Re(),0-num.Im());
         return nuevo;
     }
 	TComplejo operator* (double re,const TComplejo& num)
     {
-        TComplejo nuevo(re*num.Re(),0);
+        TComplejo nuevo(this->Re()*num.Re());
         return nuevo;
-    }
+    }*/
