@@ -151,7 +151,7 @@ TComplejo TComplejo::operator*(double num)
         os<<"("<<num.Re()<<" "<<num.Im()<<")";
         return os;
     }
-   /* TComplejo operator+ (double re,const TComplejo& num) //no entiendo para que sirven
+    TComplejo operator+ (double re,const TComplejo& num) //no entiendo para que sirven
     {
         TComplejo nuevo(this->Re()+num.Re(),0+num.Im());
         return nuevo;
@@ -165,4 +165,4 @@ TComplejo TComplejo::operator*(double num)
     {
         TComplejo nuevo(this->Re()*num.Re());
         return nuevo;
-    }*/
+    }
