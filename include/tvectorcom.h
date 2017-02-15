@@ -1,9 +1,10 @@
 #ifndef TVECTORCOM_H_
 #define TVECTORCOM_H_
-
+#include "tcomplejo.h"
 private:
     TComplejo *c;
     int tamano;
+    TComplejo error;
 public:
     // Constructor por defecto
     TVectorCom();
@@ -15,29 +16,32 @@ public:
     TVectorCom (const TVectorCom &);
 
     // Destructor
-    ~TVectorCom ();
+    ~TVectorCom();
+
+    //copia
+    void Copia(const TVectorCom&);
 
     // Sobrecarga del operador asignación
     TVectorCom & operator=(const TVectorCom &);
+
     // Sobrecarga del operador igualdad
     bool operator==(const TVectorCom &);
     // Sobrecarga del operador desigualdad
     bool operator!=(const TVectorCom &);
     // Sobrecarga del operador corchete (parte IZQUIERDA)
-    TComplejo & operator[](int);
+    TComplejo& operator[](int);
     // Sobrecarga del operador corchete (parte DERECHA)
     TComplejo operator[](int) const;
     // Tamaño del vector (posiciones TOTALES)
-    int Tamano();
+    int Tamano()const;
     // Cantidad de posiciones OCUPADAS (TComplejo NO VACIO) en el vector
     int Ocupadas();
     // Devuelve TRUE si existe el TComplejo en el vector
     bool ExisteCom(const TComplejo &);
-    // Mostrar por pantalla los elementos TComplejo del vector con PARTE REAL
-    O POSTERIOR al argumento
+    // Mostrar por pantalla los elementos TComplejo del vector con PARTE REAL O POSTERIOR al argumento
     void MostrarComplejos(double);
     // REDIMENSIONAR el vector de TComplejo
     bool Redimensionar(int);
     // Sobrecarga del operador salida
-    friend ostream & operator<<(ostream &,const TVectorCom &);
+    friend ostream& operator<<(ostream&,const TVectorCom&);
 #endif

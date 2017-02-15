@@ -61,5 +61,7 @@ public:
 	friend TComplejo operator+ (double ,const TComplejo&);
 	friend TComplejo operator- (double ,const TComplejo&);
 	friend TComplejo operator* (double ,const TComplejo&);
+	//true si es vacio
+	bool EsVacio(){if(this->Re()==0 && this->Im()==0){return true;}return false;}
 };
 #endif /* TCOMPLEJO_H_ */

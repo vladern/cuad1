@@ -146,14 +146,14 @@ TComplejo TComplejo::operator*(double num)
        return sqrt(pow(this->re,2)+pow(im,2));
     }
     
-    ostream& operator<<(ostream &os,const TComplejo &num)
+  /*  ostream& operator<<(ostream &os,const TComplejo &num)
     {
         os<<"("<<num.Re()<<" "<<num.Im()<<")";
         return os;
     }
-    TComplejo operator+ (double re,const TComplejo& num) //no entiendo para que sirven
+    TComplejo operator+ (double re,const TComplejo& num)//como el re no es TComplejo hay que  hacer  lo amigo
     {
-        TComplejo nuevo(this->Re()+num.Re(),0+num.Im());
+        TComplejo nuevo(this+num);
         return nuevo;
     }
 	TComplejo operator-(double re,const TComplejo& num)
@@ -165,4 +165,4 @@ TComplejo TComplejo::operator*(double num)
     {
         TComplejo nuevo(this->Re()*num.Re());
         return nuevo;
-    }
+    }*/
