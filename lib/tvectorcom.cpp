@@ -25,7 +25,11 @@ TVectorCom::TVectorCom(const TVectorCom& vec)
 TVectorCom::~TVectorCom()//falta por hacer
 {
 	this->tamano=0;
-	delete[] this->c;
+	for(int i=0;i<this->Tamano();i++)
+	{
+		delete[] this->c;
+	}
+
 }
 //Copia el objeto en profundidad
 void TVectorCom::Copia(const TVectorCom& vec)
@@ -124,17 +128,20 @@ bool TVectorCom::ExisteCom(const TComplejo& com)
 // Mostrar por pantalla los elementos TComplejo del vector con PARTE REAL O POSTERIOR al argumento
 void TVectorCom::MostrarComplejos(double re)
 {
-	if(this->c==NULL)
-	{
-		cout<<""<<endl;
-	}
-	for(int i=0;i<this->Tamano();i++)
-	{
-		if(this->c[i].Re()>=re)
+		int cont=0;
+		cout<<"[";
+		for(int i=0;i<this->Tamano();i++)
 		{
-			cout<<this->c[i];
+			if(cont==0 and this->c[i].Re()>=re)
+			{
+				cout<<this->c[i]; cont++;
+			}else if(this->c[i].Re()>=re)
+			{
+				cout<<","<<this->c[i];
+			}
 		}
-	}
+		cout<<"]";
+
 }
 // REDIMENSIONAR el vector de TComplejo
 bool TVectorCom::Redimensionar(int n) //mucho mas complejo que eso hay que recorer y destruir cada uno de los objetos si es necesario
