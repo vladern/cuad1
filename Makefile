@@ -1,9 +1,9 @@
 CC=g++
 OPTIONS= -g
-DEBUG= #-D DEBUG
+DEBUG= -D DEBUG
 LIBDIR=lib
 INCLUDEDIR=include
-_OBJ= tcomplejo.o
+_OBJ= tcomplejo.o tvectorcom.o
 OBJ = $(patsubst %,$(LIBDIR)/%,$(_OBJ))
 all : tad
 tad: src/tad.cpp $(OBJ)
@@ -12,4 +12,3 @@ $(LIBDIR)/%.o : $(LIBDIR)/%.cpp $(INCLUDEDIR)/%.h
 	$(CC) $(OPTIONS) $(DEBUG) -c -I$(INCLUDEDIR) -o $@ $<
 clean:
 	rm -f $(OBJ)
-

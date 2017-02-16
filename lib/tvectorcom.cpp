@@ -1,11 +1,11 @@
 #include"tvectorcom.h"
 
-TVectorCom::TVectorCom()
+TVectorCom::TVectorCom():error()
 {
     this->tamano=0;
     this->c=NULL;
 }
-TVectorCom::TVectorCom(int a)
+TVectorCom::TVectorCom(int a):error()
 {
     if(a<0)
     {
@@ -24,7 +24,8 @@ TVectorCom::TVectorCom(const TVectorCom& vec)
 }
 TVectorCom::~TVectorCom()//falta por hacer
 {
-
+	this->tamano=0;
+	delete[] this->c;
 }
 //Copia el objeto en profundidad
 void TVectorCom::Copia(const TVectorCom& vec)
@@ -32,7 +33,7 @@ void TVectorCom::Copia(const TVectorCom& vec)
 	this->tamano=vec.Tamano();
 	for(int i=0;i<this->Tamano();i++)
 	{
-		this[i]=vec[i];
+		this->c[i]=vec[i];
 	}
 }
 //sobrecarga del operador de asignacion
@@ -41,7 +42,7 @@ TVectorCom& TVectorCom::operator=(const TVectorCom& vec)
     if(this != &vec)
     {
         //lo destruyo
-        this->~TComplejo();
+        (*this).~TVectorCom();
         // y lo copio
         this->Copia(vec);
     }
@@ -66,36 +67,39 @@ bool TVectorCom::operator==(const TVectorCom& vec)
 //sobrecarga del operador de desigualdad
 bool TVectorCom::operator!=(const TVectorCom& vec)
 {
-	return !(this==vec);
+	return !((*this)==vec);
 }
 //sobrecarga del operador de [] de izquierda
 TComplejo& TVectorCom::operator[](int num)
 {
 	if(num>=1 && num<=this->Tamano())
 	{
-		return *this->c[num-1];
+		return this->c[num-1];
 	}
-	return *this->error; //hay que mirar como se implementa ++++++++++++++++++
+	return this->error;
 }
-//sobrecarga del operador de [] de izquierda
+//sobrecarga del operador de [] de derecha
 TComplejo TVectorCom::operator[](int num)const
 {
 	if(num>=1 && num<=this->Tamano())
 	{
 		TComplejo nuevo = this->c[num-1];
+		return nuevo;
 	}
-	return this->error;
+	TComplejo nuevo;
+	nuevo = this->error;
+	return nuevo;
 }
 //devuelve el tamaño del vector
-int TVectorCom::TVectorCom()const
+int TVectorCom::Tamano()const
 {
-	return this->tam;
+	return this->tamano;
 }
 //numero de TComplojos no vacios
-int TVectorCom::Ocupadas() const //añadir el caso de que este vacio el vector y apunte a null
+int TVectorCom::Ocupadas()
 {
   int cont = 0;
-  if(this->c == NULL )
+  if(this->c== NULL )
 	  return cont;
   for(int i=0;i<this->Tamano();i++)
   {
@@ -106,7 +110,7 @@ int TVectorCom::Ocupadas() const //añadir el caso de que este vacio el vector y
   }
   return cont;
 }
-bool ExisteCom(const TComplejo& com)
+bool TVectorCom::ExisteCom(const TComplejo& com)
 {
 	if(this->c==NULL)
 		return false;
@@ -133,18 +137,38 @@ void TVectorCom::MostrarComplejos(double re)
 	}
 }
 // REDIMENSIONAR el vector de TComplejo
-bool TVectorCom::Redimensionar(int num)
+bool TVectorCom::Redimensionar(int n) //mucho mas complejo que eso hay que recorer y destruir cada uno de los objetos si es necesario
 {
-	this->tamano = num;
-	return true;
+	bool devolver =false;
+	TComplejo *auxiliar;
+
+	if(n>0 and n!=this->Tamano())
+	{
+		auxiliar= new TComplejo[n];
+		this->tamano=n;
+		for(int i=0;i<n;i++)
+		{
+			auxiliar[i]=this->c[i];
+		}
+		delete[] this->c;
+		this->c=auxiliar;
+		devolver=true;
+	}
+	return devolver;
 }
 // Sobrecarga del operador salida
-friend ostream & operator<<(ostream& os,const TVectorCom& vec) //mirar y comprobar que este todo bien
+ostream & operator<<(ostream& os,const TVectorCom& vector) //mirar y comprobar que este todo bien
 {
-	for(int i=0;i<vec.Tamano();i++)
-	{
-		os<<vec[i];
-	}
-	return os;
+		os<<"[";
+		for(int i=0;i<vector.Tamano();i++)
+		{
+			os<<i+1<<" ";
+			os<< vector.c[i];
+			if(i<vector.Tamano() - 1)
+			{
+				os<<" ";
+			}
+		}
+		os<<"]";
 }
 
