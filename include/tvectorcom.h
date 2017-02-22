@@ -27,6 +27,8 @@ class TVectorCom
         // Sobrecarga del operador asignación
         TVectorCom & operator=(const TVectorCom &);
 
+        void clear(){error.Re(0),error.Im(0);}
+
         // Sobrecarga del operador igualdad
         bool operator==(const TVectorCom &);
         // Sobrecarga del operador desigualdad

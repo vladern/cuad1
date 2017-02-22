@@ -80,6 +80,7 @@ TComplejo& TVectorCom::operator[](int num)
 	{
 		return this->c[num-1];
 	}
+	this->error.clear();
 	return this->error;
 }
 //sobrecarga del operador de [] de derecha
@@ -149,7 +150,7 @@ bool TVectorCom::Redimensionar(int n) //mucho mas complejo que eso hay que recor
 	bool devolver =false;
 	TComplejo *auxiliar;
 
-	if(n>0 and n!=this->Tamano())
+	if( n>0 and n!=this->Tamano())
 	{
 		auxiliar= new TComplejo[n];
 		this->tamano=n;
