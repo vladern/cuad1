@@ -1,5 +1,6 @@
 #ifndef TLISTACOM_H_
 #define TLISTACOM_H_
+include "tcomplejo.h"
 class TListaNodo
 {
     private:
@@ -15,9 +16,11 @@ class TListaNodo
         // Constructor de copia
         TListaNodo (const TListaNodo &);
         // Destructor
-        ~TListaNodo ();
+        ~TListaNodo();
+        //copia
+        void Copia(const TListaNodo &);
         // Sobrecarga del operador asignación
-        TListaNodo & operator=(const TListaNodo &);
+        TListaNodo& operator=(const TListaNodo &);
 };
 class TListaPos
 {

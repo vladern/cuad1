@@ -152,14 +152,14 @@ bool TVectorCom::Redimensionar(int n) //mucho mas complejo que eso hay que recor
 
 	if( n>0 and n!=this->Tamano())
 	{
-		auxiliar= new TComplejo[n];
+		auxiliar = new TComplejo[n];
 		this->tamano=n;
 		for(int i=0;i<n;i++)
 		{
 			auxiliar[i]=this->c[i];
 		}
 		delete[] this->c;
-		this->c=auxiliar;
+			
 		devolver=true;
 	}
 	return devolver;
