@@ -64,6 +64,12 @@ class TListaCom
         // Ultimo elemento de la lista
         TListaNodo *ultimo;
     public:
+        //get primero
+        TListaNodo* getPrimero() const;
+        //get ultimo
+        TListaNodo* getUltimo() const;
+        //copia
+        void Copia(const TListaCom&);
         // Constructor por defecto
         TListaCom ();
         // Constructor de copia

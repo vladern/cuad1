@@ -116,3 +116,50 @@ void TListaPos::Copia(const TListaPos& pos)
 {
     this->pos = pos.pos;
 }
+
+// Constructor por defecto
+TListaCom::TListaCom()
+{
+    this->primero=NULL;
+    this->ultimo=NULL;
+}
+// Constructor de copia
+TListaCom::TListaCom(const TListaCom& lista)
+{
+    this->Copia(lista);
+}
+// Destructor
+TListaCom::~TListaCom()
+{
+    if(this != NULL)
+    {
+        this->primero=NULL;
+        this->ultimo=NULL;
+    }
+}
+// Sobrecarga del operador asignación
+TListaCom& TListaCom::operator=(const TListaCom& lista)
+{
+    if(this != &lista)
+    {
+        (*this).~TListaCom();
+        this->Copia(lista);
+    }
+    return *this;
+}
+//copia
+void TListaCom::Copia(const TListaCom& lista)
+{
+    this->primero = lista.getPrimero();
+    this->ultimo = lista.getUltimo();
+}
+//get primero
+TListaNodo* TListaCom::getPrimero()const
+{
+    return this->primero;
+}
+//get ultimo
+TListaNodo* TListaCom::getUltimo()const
+{
+    return this->ultimo;
+}
