@@ -1,4 +1,14 @@
 #include "tlistacom.h"
+
+TListaNodo* TListaNodo::getAnterior()
+{
+    return this->anterior;
+}
+//getter del siguiente
+TListaNodo* TListaNodo::getSiguiente()
+{
+    return this->siguiente;
+}
 TListaNodo::TListaNodo():e()
 {
     this->anterior=NULL;
@@ -10,7 +20,7 @@ void TListaNodo::Copia(const TListaNodo& miNodo)
 	this->anterior=NULL;
 	this->siguiente=NULL;
 }
-TListaNodo::TListaNodo(const TListaNodo& n):e(n.e)
+TListaNodo::TListaNodo(const TListaNodo& n)
 {
     this->Copia(n);
 }
@@ -28,7 +38,7 @@ TListaNodo& TListaNodo::operator=(const TListaNodo& nod)
 {
     if(this != &nod)
     {
-        (*this)~TListaNodo();
+        (*this).~TListaNodo();
         Copia(nod);
     }
     return *this;
@@ -44,7 +54,7 @@ TListaPos::TListaPos (const TListaPos& lista)
 {
     this->Copia(lista);
 }
-TListaPos::TListaPos(const TListaNodo *nodo)
+TListaPos::TListaPos(TListaNodo *nodo)
 {
     this->pos=nodo;
 }
@@ -61,7 +71,7 @@ TListaPos& TListaPos::operator=(const TListaPos& lista)
 {
     if(this != &lista)
     {
-        (*this)~TListaPos();
+        (*this).~TListaPos();
         this->Copia(lista);
     }
     return *this;
@@ -83,13 +93,13 @@ bool TListaPos::operator!=(const TListaPos& pos)
 // Devuelve la posición anterior
 TListaPos TListaPos::Anterior()
 {
-    TListaPos pos = TListaPos(this->pos->anterior);
+    TListaPos pos = TListaPos(this->pos->getAnterior());
     return pos;
 }
 // Devuelve la posición siguiente
 TListaPos TListaPos::Siguiente()
 {
-    TListaPos pos = TListaPos(this->pos->siguiente);
+    TListaPos pos = TListaPos(this->pos->getSiguiente());
     return pos;
 }
 // Devuelve TRUE si la posición no apunta a una lista, FALSE en caso contrario
@@ -102,7 +112,7 @@ bool TListaPos::EsVacia()
     return false;
 }
 //copia
-void TlistaPos::Copia(const TListaPos& pos)
+void TListaPos::Copia(const TListaPos& pos)
 {
     this->pos = pos.pos;
 }

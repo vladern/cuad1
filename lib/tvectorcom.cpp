@@ -171,11 +171,12 @@ ostream & operator<<(ostream& os,const TVectorCom& vector) //mirar y comprobar q
 		os<<"[";
 		for(int i=0;i<vector.Tamano();i++)
 		{
-			os<<i+1<<" ";
+			os<<"("<<i+1<<")"<<" ";
+
 			os<< vector.c[i];
 			if(i<vector.Tamano() - 1)
 			{
-				os<<" ";
+				os<<", ";
 			}
 		}
 		os<<"]";

@@ -11,6 +11,10 @@ class TListaNodo
         // El nodo siguiente
         TListaNodo *siguiente;
     public:
+        //getter del anterior
+        TListaNodo* getAnterior();
+        //getter del siguiente
+        TListaNodo* getSiguiente();
         // Constructor por defecto
         TListaNodo ();
         // Constructor de copia
@@ -33,7 +37,7 @@ class TListaPos
         // Constructor de copia
         TListaPos (const TListaPos &);
         // Constructor pasando un puntero a nodo
-        TListaPos(const TlistaNodo *);
+        TListaPos(TListaNodo *);
         // Destructor
         ~TListaPos ();
         // Sobrecarga del operador asignación
