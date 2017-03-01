@@ -20,6 +20,8 @@ private:
 	double re ; // PARTE REAL
 	double im ; // PARTE IMAGINARIA
 public:
+	//pone a zero la parte real y imaginaria
+    void clear();
 	//Constructor por defecto: PARTE REAL E IMAGINARIA INICIALIZADA A 0
 	TComplejo(){re=0,im=0;};
 	//Constructor a partir de la PARTE REAL

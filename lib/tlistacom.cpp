@@ -1,4 +1,4 @@
-include "tlistacom.h"
+#include "tlistacom.h"
 TListaNodo::TListaNodo():e()
 {
     this->anterior=NULL;
@@ -32,4 +32,77 @@ TListaNodo& TListaNodo::operator=(const TListaNodo& nod)
         Copia(nod);
     }
     return *this;
+}
+
+// Constructor por defecto
+TListaPos::TListaPos()
+{
+    this->pos = NULL;
+}
+// Constructor de copia
+TListaPos::TListaPos (const TListaPos& lista)
+{
+    this->Copia(lista);
+}
+TListaPos::TListaPos(const TListaNodo *nodo)
+{
+    this->pos=nodo;
+}
+// Destructor
+TListaPos::~TListaPos ()
+{
+    if(this != NULL)
+    {
+        this->pos=NULL;
+    }
+}
+// Sobrecarga del operador asignación
+TListaPos& TListaPos::operator=(const TListaPos& lista)
+{
+    if(this != &lista)
+    {
+        (*this)~TListaPos();
+        this->Copia(lista);
+    }
+    return *this;
+}
+// Sobrecarga del operador igualdad
+bool TListaPos::operator==(const TListaPos& pos)
+{
+    if(this->pos == pos.pos)
+    {
+        return true;
+    }
+    return false;
+}
+// Sobrecarga del operador desigualdad
+bool TListaPos::operator!=(const TListaPos& pos)
+{
+    return !((*this)==pos);
+}
+// Devuelve la posición anterior
+TListaPos TListaPos::Anterior()
+{
+    TListaPos pos = TListaPos(this->pos->anterior);
+    return pos;
+}
+// Devuelve la posición siguiente
+TListaPos TListaPos::Siguiente()
+{
+    TListaPos pos = TListaPos(this->pos->siguiente);
+    return pos;
+}
+// Devuelve TRUE si la posición no apunta a una lista, FALSE en caso contrario
+bool TListaPos::EsVacia()
+{
+    if(this->pos==NULL)
+	{
+		return true;
+	}
+    return false;
+}
+//copia
+void TlistaPos::Copia(const TListaPos& pos)
+{
+    this->pos = pos.pos;
 }

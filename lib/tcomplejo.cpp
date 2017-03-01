@@ -4,6 +4,13 @@
  *      Author: plakaplaka
  */
  #include"tcomplejo.h"
+
+ //pone a zero la parte real y imaginaria
+void TComplejo::clear()
+{
+	Re(0);
+	Im(0);
+}
 //Constructor de copia
  TComplejo::TComplejo(TComplejo& num)
  {   

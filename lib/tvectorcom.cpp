@@ -83,6 +83,7 @@ TComplejo& TVectorCom::operator[](int num)
 	this->error.clear();
 	return this->error;
 }
+
 //sobrecarga del operador de [] de derecha
 TComplejo TVectorCom::operator[](int num)const
 {

@@ -1,6 +1,6 @@
 #ifndef TLISTACOM_H_
 #define TLISTACOM_H_
-include "tcomplejo.h"
+#include "tcomplejo.h"
 class TListaNodo
 {
     private:
@@ -31,7 +31,9 @@ class TListaPos
         // Constructor por defecto
         TListaPos ();
         // Constructor de copia
-        TListaPos (TListaPos &);
+        TListaPos (const TListaPos &);
+        // Constructor pasando un puntero a nodo
+        TListaPos(const TlistaNodo *);
         // Destructor
         ~TListaPos ();
         // Sobrecarga del operador asignación
@@ -46,6 +48,9 @@ class TListaPos
         TListaPos Siguiente();
         // Devuelve TRUE si la posición no apunta a una lista, FALSE en caso contrario
         bool EsVacia();
+        //copia
+        void Copia(const TListaPos &);
+
 };
 class TListaCom
 {
