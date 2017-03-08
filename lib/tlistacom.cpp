@@ -9,6 +9,11 @@ TListaNodo* TListaNodo::getSiguiente()
 {
     return this->siguiente;
 }
+//getter del complejo
+TComplejo TListaNodo::getE()
+{
+    return this->e;
+}
 TListaNodo::TListaNodo():e()
 {
     this->anterior=NULL;
@@ -129,21 +134,37 @@ TListaCom::TListaCom(const TListaCom& lista)
     this->Copia(lista);
 }
 // Destructor
+// Destructor
 TListaCom::~TListaCom()
 {
-    if(this != NULL)
-    {
-        this->primero=NULL;
-        this->ultimo=NULL;
-    }
+	if(this!=NULL)
+	{
+		TListaNodo *aux0;
+		TListaNodo *aux1;
+		aux0=this->primero;
+		while(aux0!=NULL)
+		{
+			aux1=aux0;
+            aux0=aux0->getSiguiente();
+			delete aux1;
+		}
+		this->primero=NULL;
+		this->ultimo=NULL;
+	}
 }
 // Sobrecarga del operador asignación
 TListaCom& TListaCom::operator=(const TListaCom& lista)
 {
-    if(this != &lista)
+    TListaNodo* aux;
+    if(!(this!=lista))
     {
-        (*this).~TListaCom();
-        this->Copia(lista);
+        (*this).~TListaPoro();
+        aux = lista.getPrimero();
+        while(aux!=NULL)
+        {
+            this->Insertar(lista.getE());
+            aux=lista.getSiguiente();
+        }
     }
     return *this;
 }
@@ -163,3 +184,45 @@ TListaNodo* TListaCom::getUltimo()const
 {
     return this->ultimo;
 }
+bool TListaCom::operator==(TListaCom& lista)const
+{
+	TListaNodo *aux0;
+	TListaNodo *aux1;
+	aux0=this->primero;
+    aux1=lista.getPrimero();
+	int a=this->Longitud(),b=lista.Longitud();
+	bool devuelvo;
+	if(a!=b)
+	{
+		devuelvo=false;
+	}else
+	{
+		devuelvo=true;
+		while(aux0!=NULL and devuelvo==true)
+		{
+			if(aux0->e==aux1->e)
+			{
+				aux0=aux0->siguiente;
+				aux1=aux1->siguiente;
+			}else
+			{
+				devuelvo=false;
+			}
+		}
+	}
+	return devuelvo;
+}
+bool TListaCom::operator!=(TListaCom& lista)const
+{
+    return !((*this)==lista);
+}
+// Sobrecarga del operador suma
+TListaCom TListaCom::operator+(const TListaCom& lista)
+{
+   TListaNodo* aux0 = this->getUltimo();
+   TListaNodo* aux1 = lista->getPrimero();
+   aux0->siguiente= aux1;
+   aux1->anterior=aux0;
+}
+
+

@@ -3,6 +3,8 @@
 #include "tcomplejo.h"
 class TListaNodo
 {
+    friend class TListaPos;
+    friend class TListaCom;
     private:
         // El elemento del nodo
         TComplejo e;
@@ -15,6 +17,8 @@ class TListaNodo
         TListaNodo* getAnterior();
         //getter del siguiente
         TListaNodo* getSiguiente();
+        //getter del complejo
+        TComplejo getE();
         // Constructor por defecto
         TListaNodo ();
         // Constructor de copia
@@ -28,6 +32,8 @@ class TListaNodo
 };
 class TListaPos
 {
+    friend class TListaNodo;
+    friend class TListaCom;
     private:   
         // Puntero a un nodo de la lista
         TListaNodo *pos;
@@ -58,6 +64,8 @@ class TListaPos
 };
 class TListaCom
 {
+    friend class TListaNodo;
+    friend class TListaCom;
     private:
         // Primer elemento de la lista
         TListaNodo *primero;
@@ -78,6 +86,10 @@ class TListaCom
         ~TListaCom ();
         // Sobrecarga del operador asignación
         TListaCom & operator=(const TListaCom &);
+        //Sobrecarga del operador igualdad
+        bool operator==(TListaCom &);
+        //Sobrecarga del operador desigualdad
+        bool operator!=(TListaCom &);
         // Sobrecarga del operador suma
         TListaCom operator+(const TListaCom &);
         // Sobrecarga del operador resta
