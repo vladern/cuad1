@@ -377,8 +377,70 @@ bool TListaPos::Borrar(const TComplejo& e)
                     (*pos.pos).~TListaNodo();
                 }
                 return true;
+            }else
+            {
+                pos.pos=pos.Siguiente();
             }
         }
+    }else
+    {
+        return false;
+    }
+}
+// Busca y borra todas las ocurrencias del elemento
+bool BorrarTodos(const TComplejo& e)
+{
+    if(this->Longitud()!=0)
+    {
+        TListaPos pos = TListaPos(this->primero);
+        TListaNodo* aux = new TListaNodo();
+        while(pos.Siguiente()!=NULL)
+        {
+            //si el elemento que contiene el nodo es igual al elemento que nos han pasado
+            if(pos.pos->getE()==e)
+            {
+                //si la posicion es la primera
+                if(this->primero==pos.pos)
+                {
+                    //hago que el anterior del sigiente nodo sea NULL
+                    pos.pos->siguiente->anterior = NULL;
+                    //apunto como primero al siguiente nodo
+                    this->primero = pos.pos->siguiente;
+                    //asigno el auxiliar
+                    aux = pos.Siguiente();
+                    //destruyo el nodo
+                    (*pos.pos).~TListaNodo();
+
+                //si la posicion es la ultima
+                }else if(this->ultimo==pos.pos)
+                {
+                    //hago que el siguiente del nodo anterior apunte a NULL
+                    pos.pos->anterior->siguiente=NULL;
+                    //apunto como ultimo al nodo anterior
+                    this->ultimo=pos.pos->anterior;
+                    //asigno el auxiliar
+                    aux = pos.Siguiente();
+                    //destruyo el nodo
+                    (*pos.pos).~TListaPos();
+                }else
+                {
+                    //hago que el siguiente del anterior apunte a mi siguiente
+                    pos.pos->anterior->siguiente=pos.pos->siguiente;
+                    //hago que el anterior del siguiente apunte a mi anterior
+                    pos.siguiente->anterior=pos.pos->anterior;
+                    //asigno el auxiliar
+                    aux = pos.Siguiente();
+                    //destruyo el nodo 
+                    (*pos.pos).~TListaNodo();
+                }
+                //hago que la posicion actual pase a ser aux
+                pos.pos= aux;
+            }else
+            {
+                pos.pos=pos.Siguiente();
+            }
+        }
+        return true;
     }else
     {
         return false;
