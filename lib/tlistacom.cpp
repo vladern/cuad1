@@ -142,9 +142,15 @@ TListaCom::TListaCom(const TListaCom& lista)
 {
     this->Copia(lista);// depende de Copia
 }
-TlistaCom TListaCom::Copia(const TListaCom& lista)
+void TListaCom::Copia(const TListaCom& lista)
 {
-    //depende de insertar
+    //depende de Insertar
+    TListaPos posicion = TListaPos(lista.primero);
+    while(posicion.Siguiente()!=NULL)
+    {
+        this->InsCabeza(posicion.pos);
+        poscion.pos=posicion.Siguiente();
+    }
 }
 // Inserta el elemento en la cabeza de la lista
 bool TListaCom::InsCabeza(const TComplejo& complejo)
