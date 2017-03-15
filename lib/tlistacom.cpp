@@ -167,6 +167,15 @@ void TListaCom::Copia(const TListaCom& lista)
         poscion.pos=posicion.Siguiente();
     }
 }
+// Sobrecarga del operador asignación
+TListaCom & TListaCom::operator=(const TListaCom& lista)
+{
+    if(this=!lista)
+    {
+        (*this).~TListaCom();
+        this->Copia(lista);
+    }
+}
 // Inserta el elemento en la cabeza de la lista
 bool TListaCom::InsCabeza(const TComplejo& complejo)
 {
