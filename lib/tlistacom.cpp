@@ -185,8 +185,8 @@ bool TListaCom::operator==(TListaCom& lista)
     {
         return false;
     }
-    TListaPos miPos = TListaPos(lita.primero);
-    TListaPos suPos = TListaCom(this->primero);
+    TListaPos miPos = TListaPos(this->primero);
+    TListaPos suPos = TListaCom(lita.primero);
     //recorro la lista
     while(miPos.Siguiente()!=NULL)
     {
@@ -195,6 +195,8 @@ bool TListaCom::operator==(TListaCom& lista)
         {
             return false;
         }
+        miPos.pos = miPos.Siguiente();
+        suPos.pos = suPos.Siguiente();
     }
     return true;
 }
@@ -211,6 +213,22 @@ bool TListaCom::EsVacia()
         return true;
     }
     return false;
+}
+// Devuelve true si el elemento está en la lista, false en caso contrario
+bool Buscar(const TComplejo& com)
+{
+    TListaPos miPos = TListaPos(this->primero);
+    //recorro la lista
+    while(miPos.Siguiente()!=NULL)
+    {
+        //si mi complejo  es igual de su complejo 
+        if(miPos.pos->getE() == com)
+        {
+            return true;
+        }
+        miPos.pos = miPos.Siguiente();
+    }
+    return false;    
 }
 // Inserta el elemento en la cabeza de la lista
 bool TListaCom::InsCabeza(const TComplejo& complejo)
