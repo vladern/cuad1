@@ -176,6 +176,26 @@ TListaCom & TListaCom::operator=(const TListaCom& lista)
         this->Copia(lista);
     }
 }
+//Sobrecarga del operador igualdad
+bool TListaCom::operator==(TListaCom& lista)
+{
+    if(this->Longitud()!=lista.Longitud())
+    {
+        return false;
+    }
+    TListaPos miPos = TListaPos(lita.primero);
+    TListaPos suPos = TListaCom(this->primero);
+    //recorro la lista
+    while(miPos.Siguiente()!=NULL)
+    {
+        //si mi complejo  es distinto de su complejo 
+        if(miPos.pos->getE() != suPos.pos->getE())
+        {
+            return false;
+        }
+    }
+    return true;
+}
 // Inserta el elemento en la cabeza de la lista
 bool TListaCom::InsCabeza(const TComplejo& complejo)
 {
