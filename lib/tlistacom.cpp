@@ -290,7 +290,6 @@ bool InsertarI(const TComplejo& e,const TListaPos& pos)
            nodo.siguiente=this->primero;
            //cambio el puntero del primero y hago que me apunte a mi
            this->primero=&nodo;
-           return true;
        }else
        {
            //consigo la posicion del nodo anterior 
@@ -299,8 +298,40 @@ bool InsertarI(const TComplejo& e,const TListaPos& pos)
           aux.pos->siguiente = &nodo;
           //hago que el nodo del que me pasarón la pos me apunte como su anterior
           pso.pos->anterior=&nodo;
-          return true;
        }
+       return true;
+    }else
+    {
+        return false;
+    }
+}
+// Inserta el elemento a la derecha de la posición indicada
+bool TListaCom::InsertarD(const TComplejo& e,const TListaPos& pos)
+{
+    if(this->primero!=NULL)
+    {
+        TListaNodo nodo = TListaNodo(e);
+        //si la posicion que me han pasado es la ultima pos de la lista
+        if(this->ultimo != pos.pos)
+        {
+            //hago que el ultimo nodo me apunte como su siguiente
+            pos.pos->siguiente=&nodo;
+            //apunto al ultimo nodo como mi anterior
+            nodo.anterior=this->ultimo;
+            //hago que mi nodo sea el ultimo nodo
+            this->ultimo=&nodo;
+        }else
+        {
+            //hago que el siguiente nodo me apute como su nodo anterior
+            pos->siguiente->anterior=&nodo;
+            //apunto como mi siguiente el nodo siguiente
+            nodo.siguiente=pos.pos->siguiente;
+            //apunto como mi anterior al nodo que apunta la pos
+            nodo.anterior=pos.pos;
+            //hago que el nodo que apunta la posicion me apunte como su siguiente
+            pos->siguiente=&nodo;
+        }
+        return true;
     }else
     {
         return false;
