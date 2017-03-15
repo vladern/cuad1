@@ -495,3 +495,8 @@ bool TListaCom::Borrar(const TListaPos& pos)
         return false;
     }
 }
+// Obtiene el elemento que ocupa la posición indicada
+TComplejo TListaCom::Obtener(const TListaPos& pos)
+{
+    return pos.pos->getE();
+}
