@@ -337,3 +337,50 @@ bool TListaCom::InsertarD(const TComplejo& e,const TListaPos& pos)
         return false;
     }
 }
+// Busca y borra la primera ocurrencia del elemento
+bool TListaPos::Borrar(const TComplejo& e)
+{
+    if(this->Longitud()!=0)
+    {
+        TListaPos pos = TListaPos(this->primero);
+        while(pos.Siguiente()!=NULL)
+        {
+            //si el elemento que contiene el nodo es igual al elemento que nos han pasado
+            if(pos.pos->getE()==e)
+            {
+                //si la posicion es la primera
+                if(this->primero==pos.pos)
+                {
+                    //hago que el anterior del sigiente nodo sea NULL
+                    pos.pos->siguiente->anterior = NULL;
+                    //apunto como primero al siguiente nodo
+                    this->primero = pos.pos->siguiente;
+                    //destruyo el nodo
+                    (*pos.pos).~TListaNodo();
+
+                //si la posicion es la ultima
+                }else if(this->ultimo==pos.pos)
+                {
+                    //hago que el siguiente del nodo anterior apunte a NULL
+                    pos.pos->anterior->siguiente=NULL;
+                    //apunto como ultimo al nodo anterior
+                    this->ultimo=pos.pos->anterior;
+                    //destruyo el nodo
+                    (*pos.pos).~TListaPos();
+                }else
+                {
+                    //hago que el siguiente del anterior apunte a mi siguiente
+                    pos.pos->anterior->siguiente=pos.pos->siguiente;
+                    //hago que el anterior del siguiente apunte a mi anterior
+                    pos.siguiente->anterior=pos.pos->anterior;
+                    //destruyo el nodo 
+                    (*pos.pos).~TListaNodo();
+                }
+                return true;
+            }
+        }
+    }else
+    {
+        return false;
+    }
+}
