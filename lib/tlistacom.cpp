@@ -196,6 +196,11 @@ bool TListaCom::operator==(TListaCom& lista)
     }
     return true;
 }
+//Sobrecarga del operador desigualdad
+bool TListaCom::operator!=(TListaCom& lista)
+{
+    return !((*this)==lista); 
+}
 // Inserta el elemento en la cabeza de la lista
 bool TListaCom::InsCabeza(const TComplejo& complejo)
 {
