@@ -142,6 +142,21 @@ TListaCom::TListaCom(const TListaCom& lista)
 {
     this->Copia(lista);// depende de Copia
 }
+// Destructor
+TListaCom::~TListaCom()
+{
+    if(this!=NULL)
+    {
+        TListaPos pos = TListaPos();
+        TListaNodo *aux;
+        while(pos.Siguiente()!=NULL)
+        {
+            aux=pos.pos;
+            pos.pos=pos.Siguiente();
+            delete aux;
+        }
+    }
+}
 void TListaCom::Copia(const TListaCom& lista)
 {
     //depende de Insertar
@@ -170,7 +185,7 @@ bool TListaCom::InsCabeza(const TComplejo& complejo)
             //el el anterior del primer nodo apuntará a mi nodo
             this->primero->anterior=&nodo;
             //mi  nodo se convierte en el primero
-            this->primero=nodo;
+            this->primero=&nodo;
             //el siguiente de mi nodo será el nodo que antes era el primero
             nodo.siguiente=aux;
         }else
