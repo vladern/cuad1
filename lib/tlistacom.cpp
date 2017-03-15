@@ -253,14 +253,56 @@ bool TListaCom::InsCabeza(const TComplejo& complejo)
             nodo.siguiente=aux;
         }else
         {
-            this->primero = nodo;
-            this->ultimo = nodo;
+            this->primero = &nodo;
+            this->ultimo = &nodo;
         }
         return true;     
     }
 }
-
-
-
-
-
+// Devuelve la longitud de la lista
+int TListaCom::Longitud()
+{
+    if(this->primero!=NULL)
+    {
+        return 0
+    }
+    TListaPos pos = TListaPos(this->primero);
+    int a = 0;
+    while(pos.Siguiente() != NULL)
+    {
+        a++;
+        pos=pos.Siguiente();
+    }
+    retur a;
+}
+// Inserta el elemento a la izquierda de la posición indicada
+bool InsertarI(const TComplejo& e,const TListaPos& pos)
+{
+    if(pos.pos!=NULL)
+    {
+       TListaNodo nodo = TListaNodo(e);
+       //si la posición que me pasan apunta al primer nodo
+       if(this->primero == pos.pos)
+       {
+           //hago que mi primer nodo me apunte como su anterior
+           this->primero->anterior=&nodo;
+           //apunto al siguiente nodo 
+           nodo.siguiente=this->primero;
+           //cambio el puntero del primero y hago que me apunte a mi
+           this->primero=&nodo;
+           return true;
+       }else
+       {
+           //consigo la posicion del nodo anterior 
+          TListaPos aux = TListaPos(pos.Anterior());
+          //hago que el nodo anterior me apunte como su siguiente
+          aux.pos->siguiente = &nodo;
+          //hago que el nodo del que me pasarón la pos me apunte como su anterior
+          pso.pos->anterior=&nodo;
+          return true;
+       }
+    }else
+    {
+        return false;
+    }
+}
