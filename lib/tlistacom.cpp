@@ -155,6 +155,8 @@ TListaCom::~TListaCom()
             pos.pos=pos.Siguiente();
             delete aux;
         }
+        this->primero=NULL;
+        this->ultimo=NULL;
     }
 }
 void TListaCom::Copia(const TListaCom& lista)
@@ -200,6 +202,15 @@ bool TListaCom::operator==(TListaCom& lista)
 bool TListaCom::operator!=(TListaCom& lista)
 {
     return !((*this)==lista); 
+}
+// Devuelve true si la lista está vacía, false en caso contrario
+bool TListaCom::EsVacia()
+{
+    if(this->primero==NULL)
+    {
+        return true;
+    }
+    return false;
 }
 // Inserta el elemento en la cabeza de la lista
 bool TListaCom::InsCabeza(const TComplejo& complejo)
