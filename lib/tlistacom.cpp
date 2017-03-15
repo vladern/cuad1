@@ -121,7 +121,16 @@ void TListaPos::Copia(const TListaPos& pos)
 {
     this->pos = pos.pos;
 }
-
+/*
+    Empieza la clase
+    TListaCom
+*/
+/*
+----------------------------------------
+----------------------------------------
+----------------------------------------
+----------------------------------------
+*/
 // Constructor por defecto
 TListaCom::TListaCom()
 {
@@ -131,98 +140,43 @@ TListaCom::TListaCom()
 // Constructor de copia
 TListaCom::TListaCom(const TListaCom& lista)
 {
-    this->Copia(lista);
+    this->Copia(lista);// depende de Copia
 }
-// Destructor
-// Destructor
-TListaCom::~TListaCom()
+TlistaCom TListaCom::Copia(const TListaCom& lista)
 {
-	if(this!=NULL)
-	{
-		TListaNodo *aux0;
-		TListaNodo *aux1;
-		aux0=this->primero;
-		while(aux0!=NULL)
-		{
-			aux1=aux0;
-            aux0=aux0->getSiguiente();
-			delete aux1;
-		}
-		this->primero=NULL;
-		this->ultimo=NULL;
-	}
+    //depende de insertar
 }
-// Sobrecarga del operador asignación
-TListaCom& TListaCom::operator=(const TListaCom& lista)
+// Inserta el elemento en la cabeza de la lista
+bool TListaCom::InsCabeza(const TComplejo& complejo)
 {
-    TListaNodo* aux;
-    if(!(this!=lista))
+    TListaNodo nodo = TListaNodo(complejo);
+    TListaNodo *aux = new TListaNodo();
+    aux=this->primero;
+    if(&nodo==NULL)
     {
-        (*this).~TListaPoro();
-        aux = lista.getPrimero();
-        while(aux!=NULL)
+        return false;
+    }else
+    {
+        //si el primero es vacio el primero y ultimo apuntan al nodo
+        //sino reapuntamos todos los punteros   
+        if(this->primero!=NULL)
         {
-            this->Insertar(lista.getE());
-            aux=lista.getSiguiente();
+            //el el anterior del primer nodo apuntará a mi nodo
+            this->primero->anterior=&nodo;
+            //mi  nodo se convierte en el primero
+            this->primero=nodo;
+            //el siguiente de mi nodo será el nodo que antes era el primero
+            nodo.siguiente=aux;
+        }else
+        {
+            this->primero = nodo;
+            this->ultimo = nodo;
         }
+        return true;     
     }
-    return *this;
 }
-//copia
-void TListaCom::Copia(const TListaCom& lista)
-{
-    this->primero = lista.getPrimero();
-    this->ultimo = lista.getUltimo();
-}
-//get primero
-TListaNodo* TListaCom::getPrimero()const
-{
-    return this->primero;
-}
-//get ultimo
-TListaNodo* TListaCom::getUltimo()const
-{
-    return this->ultimo;
-}
-bool TListaCom::operator==(TListaCom& lista)const
-{
-	TListaNodo *aux0;
-	TListaNodo *aux1;
-	aux0=this->primero;
-    aux1=lista.getPrimero();
-	int a=this->Longitud(),b=lista.Longitud();
-	bool devuelvo;
-	if(a!=b)
-	{
-		devuelvo=false;
-	}else
-	{
-		devuelvo=true;
-		while(aux0!=NULL and devuelvo==true)
-		{
-			if(aux0->e==aux1->e)
-			{
-				aux0=aux0->siguiente;
-				aux1=aux1->siguiente;
-			}else
-			{
-				devuelvo=false;
-			}
-		}
-	}
-	return devuelvo;
-}
-bool TListaCom::operator!=(TListaCom& lista)const
-{
-    return !((*this)==lista);
-}
-// Sobrecarga del operador suma
-TListaCom TListaCom::operator+(const TListaCom& lista)
-{
-   TListaNodo* aux0 = this->getUltimo();
-   TListaNodo* aux1 = lista->getPrimero();
-   aux0->siguiente= aux1;
-   aux1->anterior=aux0;
-}
+
+
+
 
 
