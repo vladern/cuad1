@@ -500,3 +500,15 @@ TComplejo TListaCom::Obtener(const TListaPos& pos)
 {
     return pos.pos->getE();
 }
+// Devuelve la primera posición en la lista
+TListaPos TListaCom::Primera()
+{
+    TListaPos pos = TListaPos(this->primera);
+    return pos;
+}
+// Devuelve la última posición en la lista
+TListaPos TListaCom::Ultima()
+{
+    TListaPos pos = TListaPos(this->ultimo);
+    return pos;
+}
