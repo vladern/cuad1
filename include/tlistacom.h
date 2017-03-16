@@ -21,6 +21,8 @@ class TListaNodo
         TComplejo getE();
         // Constructor por defecto
         TListaNodo ();
+        // Constructo a partir de un elemento
+        TListaNodo(const TComplejo&);
         // Constructor de copia
         TListaNodo (const TListaNodo &);
         // Destructor
@@ -36,7 +38,7 @@ class TListaPos
     friend class TListaCom;
     private:   
         // Puntero a un nodo de la lista
-        TListaNodo *pos;
+        TListaNodo* pos;
     public:
         // Constructor por defecto
         TListaPos ();
@@ -65,7 +67,7 @@ class TListaPos
 class TListaCom
 {
     friend class TListaNodo;
-    friend class TListaCom;
+    friend class TListaPos;
     private:
         // Primer elemento de la lista
         TListaNodo *primero;

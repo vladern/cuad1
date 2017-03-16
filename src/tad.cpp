@@ -24,5 +24,6 @@ main(void)
 	TVectorCom v1(2);
 	v1[1] = c1;
 	v1[2] = c2;
-	v1.MostrarComplejos(1) ;
+	v1.MostrarComplejos(1);
+	cout<<v1<<endl;
 }
