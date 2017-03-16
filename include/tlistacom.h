@@ -21,8 +21,6 @@ class TListaNodo
         TComplejo getE();
         // Constructor por defecto
         TListaNodo ();
-        // Constructo a partir de un elemento
-        TListaNodo(const TComplejo&);
         // Constructor de copia
         TListaNodo (const TListaNodo &);
         // Destructor
@@ -55,9 +53,9 @@ class TListaPos
         // Sobrecarga del operador desigualdad
         bool operator!=(const TListaPos &);
         // Devuelve la posición anterior
-        TListaPos Anterior();
+        TListaPos Anterior()const;
         // Devuelve la posición siguiente
-        TListaPos Siguiente();
+        TListaPos Siguiente()const;
         // Devuelve TRUE si la posición no apunta a una lista, FALSE en caso contrario
         bool EsVacia();
         //copia
@@ -111,15 +109,15 @@ class TListaCom
         // Borra el elemento que ocupa la posición indicada
         bool Borrar(const TListaPos &);
         // Obtiene el elemento que ocupa la posición indicada
-        TComplejo Obtener(const TListaPos &);
+        TComplejo Obtener(const TListaPos &)const;
         // Devuelve true si el elemento está en la lista, false en caso contrario
         bool Buscar(const TComplejo &);
         // Devuelve la longitud de la lista
         int Longitud();
         // Devuelve la primera posición en la lista
-        TListaPos Primera();
+        TListaPos Primera()const;
         // Devuelve la última posición en la lista
-        TListaPos Ultima();
+        TListaPos Ultima()const;
         // Sobrecarga del operador salida
         friend ostream & operator<<(ostream &,const  TListaCom &);
 };

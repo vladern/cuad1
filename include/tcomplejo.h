@@ -29,7 +29,7 @@ public:
 	//Constructor a partir de la PARTE REAL e IMAGINARIA
 	TComplejo (double re, double im){this->re=re;this->im=im;};
 	//Constructor copia
-	TComplejo (TComplejo&);
+	TComplejo (const TComplejo&);
 	//Destructor
 	~TComplejo();
 	//copia

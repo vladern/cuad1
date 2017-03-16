@@ -12,7 +12,7 @@ void TComplejo::clear()
 	Im(0);
 }
 //Constructor de copia
- TComplejo::TComplejo(TComplejo& num)
+ TComplejo::TComplejo(const TComplejo& num)
  {   
         this->Copia(num);
  }
