@@ -567,3 +567,14 @@ TListaCom TListaCom::operator-(const TListaCom& lista)
     }
     return aux;
 }
+// Sobrecarga del operador salida
+friend ostream & operator<<(ostream& os,const  TListaCom& lista)
+{
+    TListaPos pos = lista.Primera();
+    os<<"{";
+        while(pos.Siguiente()!=NULL)
+        {
+            os<<pos.pos->getE();
+        }
+    os<<"}";
+}
