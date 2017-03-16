@@ -4,6 +4,7 @@ using namespace std;
 
 #include "tcomplejo.h"
 #include "tvectorcom.h"
+#include "tlistacom.h"
 
 int
 main(void)
@@ -26,4 +27,15 @@ main(void)
 	v1[2] = c2;
 	v1.MostrarComplejos(1);
 	cout<<v1<<endl;
+	cout<<"Pruebas del complejo"<<endl;
+	TComplejo c3(1,0.5);
+	TListaCom l1;
+	if(l1.InsCabeza(c3))
+	{
+		cout<<"Se ha insertado"<<endl;
+	}else
+	{
+		cout<<"No se ha insertado"<<endl;
+	}
+	cout << l1;
 }

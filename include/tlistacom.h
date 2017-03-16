@@ -79,11 +79,11 @@ class TListaCom
         //copia
         void Copia(const TListaCom&);
         // Constructor por defecto
-        TListaCom ();
+        TListaCom();
         // Constructor de copia
-        TListaCom (const TListaCom &);
+        TListaCom(const TListaCom &);
         // Destructor
-        ~TListaCom ();
+        ~TListaCom();
         // Sobrecarga del operador asignación
         TListaCom & operator=(const TListaCom &);
         //Sobrecarga del operador igualdad
@@ -95,7 +95,7 @@ class TListaCom
         // Sobrecarga del operador resta
         TListaCom operator-(const TListaCom &);
         // Devuelve true si la lista está vacía, false en caso contrario
-        bool EsVacia();
+        bool EsVacia()const;
         // Inserta el elemento en la cabeza de la lista
         bool InsCabeza(const TComplejo &);
         // Inserta el elemento a la izquierda de la posición indicada

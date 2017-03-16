@@ -147,7 +147,7 @@ TListaCom::~TListaCom()
 {
     if(this!=NULL)
     {
-        TListaPos pos = TListaPos();
+        TListaPos pos = TListaPos(this->primero);
         TListaNodo *aux;
         while(pos.Siguiente().pos!=NULL)
         {
@@ -207,7 +207,7 @@ bool TListaCom::operator!=(TListaCom& lista)
     return !((*this)==lista); 
 }
 // Devuelve true si la lista está vacía, false en caso contrario
-bool TListaCom::EsVacia()
+bool TListaCom::EsVacia()const
 {
     if(this->primero==NULL)
     {
@@ -234,8 +234,8 @@ bool TListaCom::Buscar(const TComplejo& com)
 // Inserta el elemento en la cabeza de la lista
 bool TListaCom::InsCabeza(const TComplejo& complejo)
 {
-    TListaNodo nodo = TListaNodo();
-    nodo.e=complejo;
+    TListaNodo* nodo = new TListaNodo();
+    nodo->e=complejo;
     TListaNodo *aux = new TListaNodo();
     aux=this->primero;
     if(&nodo==NULL)
@@ -248,15 +248,15 @@ bool TListaCom::InsCabeza(const TComplejo& complejo)
         if(this->primero!=NULL)
         {
             //el anterior del primer nodo apuntará a mi nodo
-            this->primero->anterior=&nodo;
+            this->primero->anterior=nodo;
             //mi  nodo se convierte en el primero
-            this->primero=&nodo;
+            this->primero=nodo;
             //el siguiente de mi nodo será el nodo que antes era el primero
-            nodo.siguiente=aux;
+            nodo->siguiente=aux;
         }else
         {
-            this->primero = &nodo;
-            this->ultimo = &nodo;
+            this->primero = nodo;
+            this->ultimo = nodo;
         }
         return true;     
     }
@@ -280,9 +280,9 @@ int TListaCom::Longitud()
 // Inserta el elemento a la izquierda de la posición indicada
 bool TListaCom::InsertarI(const TComplejo& e,const TListaPos& posi)
 {
-    TListaNodo nodo = TListaNodo();
-    nodo.e=e;
-    if(&nodo!=NULL)
+    TListaNodo* nodo = new TListaNodo();
+    nodo->e=e;
+    if(nodo!=NULL)
     {
         if(posi.pos!=NULL)
         {
@@ -290,26 +290,26 @@ bool TListaCom::InsertarI(const TComplejo& e,const TListaPos& posi)
         if(this->primero == posi.pos)
         {
             //hago que mi primer nodo me apunte como su anterior
-            this->primero->anterior=&nodo;
+            this->primero->anterior=nodo;
             //apunto al siguiente nodo 
-            nodo.siguiente=this->primero;
+            nodo->siguiente=this->primero;
             //cambio el puntero del primero y hago que me apunte a mi
-            this->primero=&nodo;
+            this->primero=nodo;
         }else
         {
             //consigo la posicion del nodo anterior 
             TListaPos aux = posi.Anterior();
             //hago que el nodo anterior me apunte como su siguiente
-            aux.pos->siguiente = &nodo;
+            aux.pos->siguiente = nodo;
             //hago que el nodo del que me pasarón la pos me apunte como su anterior
-            posi.pos->anterior=&nodo;
+            posi.pos->anterior= nodo;
         }
         return true;
         //la lista esta vacia
         }else
         {
-            this->primero=&nodo;
-            this->ultimo=&nodo;
+            this->primero= nodo;
+            this->ultimo= nodo;
             return true;
         }
     }else
@@ -320,9 +320,9 @@ bool TListaCom::InsertarI(const TComplejo& e,const TListaPos& posi)
 // Inserta el elemento a la derecha de la posición indicada
 bool TListaCom::InsertarD(const TComplejo& e,const TListaPos& pos)
 {
-    TListaNodo nodo = TListaNodo();
-    nodo.e=e;
-    if(&nodo!=NULL)
+    TListaNodo* nodo = new TListaNodo();
+    nodo->e=e;
+    if(nodo!=NULL)
     {
         if(this->primero!=NULL)
         {
@@ -330,28 +330,28 @@ bool TListaCom::InsertarD(const TComplejo& e,const TListaPos& pos)
             if(this->ultimo != pos.pos)
             {
                 //hago que el ultimo nodo me apunte como su siguiente
-                pos.pos->siguiente=&nodo;
+                pos.pos->siguiente=nodo;
                 //apunto al ultimo nodo como mi anterior
-                nodo.anterior=this->ultimo;
+                nodo->anterior=this->ultimo;
                 //hago que mi nodo sea el ultimo nodo
-                this->ultimo=&nodo;
+                this->ultimo=nodo;
             }else
             {
                 //hago que el siguiente nodo me apute como su nodo anterior
-                pos.pos->siguiente->anterior=&nodo;
+                pos.pos->siguiente->anterior=nodo;
                 //apunto como mi siguiente el nodo siguiente
-                nodo.siguiente=pos.pos->siguiente;
+                nodo->siguiente=pos.pos->siguiente;
                 //apunto como mi anterior al nodo que apunta la pos
-                nodo.anterior=pos.pos;
+                nodo->anterior=pos.pos;
                 //hago que el nodo que apunta la posicion me apunte como su siguiente
-                pos.pos->siguiente=&nodo;
+                pos.pos->siguiente=nodo;
             }
             return true;
         //si la lista esta vacia
         }else
         {
-            this->primero=&nodo;
-            this->ultimo=&nodo;
+            this->primero=nodo;
+            this->ultimo=nodo;
             return true;
         }
     }else
@@ -562,15 +562,23 @@ TListaCom TListaCom::operator-(const TListaCom& lista)
     return aux;
 }
 // Sobrecarga del operador salida
-ostream& operator<<(ostream& os,const  TListaCom& lista)
+ostream& operator<<(ostream& os,const  TListaCom& p)
 {
-    TListaPos pos = lista.Primera();
-    os<<"{";
-        while(pos.Siguiente()!=NULL)
-        {
-            os<<lista.Obtener(pos);
-            pos=pos.Siguiente();
-        }
-    os<<"}";
-    return os;
+	TListaPos pos0;
+	os<<"{";
+	for(pos0 = p.Primera();
+			pos0.EsVacia()==false;
+				pos0=pos0.Siguiente())
+	{
+		if(!(pos0==p.Ultima()))
+		{
+			os<<p.Obtener(pos0);
+			os<<" ";
+		}else
+		{
+			os<<p.Obtener(pos0);
+		}
+	}
+	os<<"}";
+	return os;
 }
