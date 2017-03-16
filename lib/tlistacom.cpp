@@ -245,7 +245,7 @@ bool TListaCom::InsCabeza(const TComplejo& complejo)
         //sino reapuntamos todos los punteros   
         if(this->primero!=NULL)
         {
-            //el el anterior del primer nodo apuntará a mi nodo
+            //el anterior del primer nodo apuntará a mi nodo
             this->primero->anterior=&nodo;
             //mi  nodo se convierte en el primero
             this->primero=&nodo;
@@ -511,4 +511,22 @@ TListaPos TListaCom::Ultima()
 {
     TListaPos pos = TListaPos(this->ultimo);
     return pos;
+}
+// Sobrecarga del operador suma
+TListaCom TListaCom::operator+(const TListaCom& lista)
+{
+    TListaCom aux = TListaCom();
+    TListaPos miPos = TListaPos(this->primero);
+    TListaPos suPos = TListaPos(lista.primero);
+    while(miPos.Siguiente()!=NULL)
+    {
+        aux.InsertarD(miPos.pos->getE(),aux.utlimo);
+        miPos.pos=miPos.Siguiente();
+    }
+    while(suPos.Siguiente()!=NULL)
+    {
+        aux.InsertarD(suPos.pos->getE(),aux.ultimo);
+        suPos.pos=suPos.Siguiente();
+    }
+    return aux;
 }
