@@ -166,7 +166,7 @@ bool TVectorCom::Redimensionar(int n) //mucho mas complejo que eso hay que recor
 	return devolver;
 }
 // Sobrecarga del operador salida
-ostream& operator<<(ostream& os,const TVectorCom& vector) //mirar y comprobar que este todo bien
+ostream & operator<<(ostream& os,const TVectorCom& vector) //mirar y comprobar que este todo bien
 {
 		os<<"[";
 		for(int i=0;i<vector.Tamano();i++)
