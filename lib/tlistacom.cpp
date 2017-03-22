@@ -140,6 +140,8 @@ TListaCom::TListaCom()
 // Constructor de copia
 TListaCom::TListaCom(const TListaCom& lista)
 {
+    this->primero=NULL;
+    this->ultimo=NULL;
     this->Copia(lista);// depende de Copia
 }
 // Destructor
@@ -149,7 +151,7 @@ TListaCom::~TListaCom()
     {
         TListaPos pos = TListaPos(this->primero);
         TListaNodo *aux;
-        while(pos.Siguiente().pos!=NULL)
+        while(pos.pos!=NULL)
         {
             aux=pos.pos;
             pos=pos.Siguiente();
@@ -163,9 +165,10 @@ void TListaCom::Copia(const TListaCom& lista)
 {
     //depende de Insertar
     TListaPos posicion = TListaPos(lista.primero);
-    while(posicion.Siguiente()!=NULL)
+    while(posicion.pos != NULL)
     {
-        this->InsCabeza(posicion.pos->getE());
+        TComplejo com = posicion.pos->getE();
+        this->InsCabeza(com);
         posicion.pos=posicion.Siguiente().pos;
     }
 }
@@ -264,13 +267,13 @@ bool TListaCom::InsCabeza(const TComplejo& complejo)
 // Devuelve la longitud de la lista
 int TListaCom::Longitud()
 {
-    if(this->primero!=NULL)
+    if(this->primero==NULL)
     {
         return 0;
     }
     TListaPos pos = TListaPos(this->primero);
     int a = 0;
-    while(pos.Siguiente() != NULL)
+    while(pos.pos != NULL)
     {
         a++;
         pos=pos.Siguiente();
@@ -327,7 +330,7 @@ bool TListaCom::InsertarD(const TComplejo& e,const TListaPos& pos)
         if(this->primero!=NULL)
         {
             //si la posicion que me han pasado es la ultima pos de la lista
-            if(this->ultimo != pos.pos)
+            if(this->ultimo == pos.pos)
             {
                 //hago que el ultimo nodo me apunte como su siguiente
                 pos.pos->siguiente=nodo;
@@ -416,7 +419,7 @@ bool TListaCom::BorrarTodos(const TComplejo& e)
     {
         TListaPos pos = TListaPos(this->primero);
         TListaNodo* aux = new TListaNodo();
-        while(pos.Siguiente()!=NULL)
+        while(pos.pos!=NULL)
         {
             //si el elemento que contiene el nodo es igual al elemento que nos han pasado
             if(pos.pos->getE()==e)
@@ -527,48 +530,49 @@ TListaPos TListaCom::Ultima()const
 // Sobrecarga del operador suma
 TListaCom TListaCom::operator+(const TListaCom& lista)
 {
-    TListaCom aux = TListaCom();
+    TListaCom* aux = new TListaCom();
     TListaPos miPos = TListaPos(this->primero);
     TListaPos suPos = TListaPos(lista.primero);
-    while(miPos.Siguiente()!=NULL)
+    while(miPos.pos!=NULL)
     {
-        aux.InsertarD(miPos.pos->getE(),aux.ultimo);
+        aux->InsertarD(miPos.pos->getE(),aux->ultimo);
         miPos=miPos.Siguiente();
     }
-    while(suPos.Siguiente()!=NULL)
+    while(suPos.pos!=NULL)
     {
-        aux.InsertarD(suPos.pos->getE(),aux.ultimo);
+        aux->InsertarD(suPos.pos->getE(),aux->ultimo);
         suPos=suPos.Siguiente();
     }
-    return aux;
+    return (*aux);
 }
 // Sobrecarga del operador resta
 TListaCom TListaCom::operator-(const TListaCom& lista)
 {
-    TListaPos miPos = this->Primera();
-    TListaCom aux = TListaCom();
-    while(miPos.Siguiente()!=NULL)
+    
+    TListaCom* aux = new TListaCom();
+    TListaPos miPos = TListaPos(this->primero);
+    while(miPos.pos!=NULL)
     {
         TListaPos suPos = lista.Primera();
-        while(suPos.Siguiente()!=NULL)
+        while(suPos.pos!=NULL)
         {
             if(miPos.pos->getE()!=suPos.pos->getE())
             {
-                aux.InsertarD(suPos.pos->getE(),aux.ultimo);
+                aux->InsertarD(miPos.pos->getE(),aux->ultimo);
             }
+            suPos = suPos.Siguiente();
         }
         miPos = miPos.Siguiente();
     }
-    return aux;
+    return (*aux);
 }
 // Sobrecarga del operador salida
 ostream& operator<<(ostream& os,const  TListaCom& p)
 {
 	TListaPos pos0;
 	os<<"{";
-	for(pos0 = p.Primera();
-			pos0.EsVacia()==false;
-				pos0=pos0.Siguiente())
+    pos0 = p.Primera();
+    while(!pos0.EsVacia())
 	{
 		if(!(pos0==p.Ultima()))
 		{
@@ -578,6 +582,7 @@ ostream& operator<<(ostream& os,const  TListaCom& p)
 		{
 			os<<p.Obtener(pos0);
 		}
+        pos0=pos0.Siguiente();
 	}
 	os<<"}";
 	return os;

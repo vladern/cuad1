@@ -129,23 +129,7 @@ TComplejo TComplejo::operator*(double num)
     // Calcula el Argumento (en Radianes)
 	double TComplejo::Arg(void)
     {
-        const double PI = std::atan(1.0)*4;
-        double div = (this->im / this->re);
-        if(div<0){div=div*(-1);}
-        double alfa = atan(div);
-        if(this->im>0 && this->re<0)// b/-a
-        {
-            return PI-alfa;
-        }else if(this->im<0 && this->re<0) // -b/-a
-        {
-            return PI+alfa;
-        }else if(this->im<0 && this->re>0) // -b/a
-        {
-            return (2*PI)-alfa;
-        }else // a/b
-        {
-            return alfa;
-        }
+        return atan2(this->im,this->re);
     } 
     // Calcula el Módulo 
 	double TComplejo::Mod(void)

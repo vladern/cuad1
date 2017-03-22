@@ -14,7 +14,7 @@ TVectorCom::TVectorCom(int a):error()
     }else
     {
         this->tamano=a;
-        this->c = new TComplejo();
+		this->c = new TComplejo[a];
     }
 }
 //constructor de copia
@@ -35,9 +35,10 @@ TVectorCom::~TVectorCom()//falta por hacer
 void TVectorCom::Copia(const TVectorCom& vec)
 {
 	this->tamano=vec.Tamano();
+	this->c = new TComplejo[this->tamano];
 	for(int i=0;i<this->Tamano();i++)
 	{
-		this->c[i]=vec[i];
+		this->c[i]=vec.c[i];
 	}
 }
 //sobrecarga del operador de asignacion
