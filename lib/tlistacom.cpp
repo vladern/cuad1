@@ -548,23 +548,18 @@ TListaCom TListaCom::operator+(const TListaCom& lista)
 // Sobrecarga del operador resta
 TListaCom TListaCom::operator-(const TListaCom& lista)
 {
-    
-    TListaCom* aux = new TListaCom();
-    TListaPos miPos = TListaPos(this->primero);
-    while(miPos.pos!=NULL)
-    {
-        TListaPos suPos = lista.Primera();
-        while(suPos.pos!=NULL)
+    TListaNodo *aux0;
+    TListaCom resultado(*this);
+    if(lista.EsVacia()==false)
+    { 
+        aux0=lista.primero;
+        while(aux0!=NULL)
         {
-            if(miPos.pos->getE()!=suPos.pos->getE())
-            {
-                aux->InsertarD(miPos.pos->getE(),aux->ultimo);
-            }
-            suPos = suPos.Siguiente();
+            resultado.BorrarTodos(aux0->e);
+            aux0=aux0->siguiente;
         }
-        miPos = miPos.Siguiente();
     }
-    return (*aux);
+    return resultado;
 }
 // Sobrecarga del operador salida
 ostream& operator<<(ostream& os,const  TListaCom& p)

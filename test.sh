@@ -1,6 +1,6 @@
 TESTSCOMPLEJO=7
 TESTSVECTOR=8
-TESTSTLISTA=8
+TESTSTLISTA=9
 nombreBase="tad"
 extension=".cpp"
 zero="0"

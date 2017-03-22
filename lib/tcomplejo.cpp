@@ -120,11 +120,7 @@ TComplejo TComplejo::operator*(double num)
     //DESIGUALDAD de números complejos
 	bool TComplejo::operator!=(const TComplejo& num)
     {
-        if(this->re==num.re && this->im==num.im)
-        {
-            return false;
-        }
-        return true;
+        return !((*this)==num);
     }
     // Calcula el Argumento (en Radianes)
 	double TComplejo::Arg(void)
