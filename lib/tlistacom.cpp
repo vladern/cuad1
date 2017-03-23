@@ -168,7 +168,7 @@ void TListaCom::Copia(const TListaCom& lista)
     while(posicion.pos != NULL)
     {
         TComplejo com = posicion.pos->getE();
-        this->InsCabeza(com);
+        this->InsertarD(com,this->ultimo);
         posicion.pos=posicion.Siguiente().pos;
     }
 }
@@ -428,14 +428,25 @@ bool TListaCom::BorrarTodos(const TComplejo& e)
                 //si la posicion es la primera
                 if(this->primero==pos.pos)
                 {
-                    //hago que el anterior del sigiente nodo sea NULL
-                    pos.pos->siguiente->anterior = NULL;
-                    //apunto como primero al siguiente nodo
-                    this->primero = pos.pos->siguiente;
-                    //asigno el auxiliar
-                    aux = pos.Siguiente().pos;
-                    //destruyo el nodo
-                    (*pos.pos).~TListaNodo();
+                    //si la lista tiene mas elementos
+                    if(pos.pos->siguiente!=NULL)
+                    {
+                        //hago que el anterior del sigiente nodo sea NULL
+                        pos.pos->siguiente->anterior = NULL;
+                        //apunto como primero al siguiente nodo
+                        this->primero = pos.pos->siguiente;
+                        //asigno el auxiliar
+                        aux = pos.Siguiente().pos;
+                        //destruyo el nodo
+                        (*pos.pos).~TListaNodo();
+                    }else
+                    {
+                        //destruyo el nodo
+                        (*pos.pos).~TListaNodo();
+                        this->primero=NULL;
+                        this->ultimo=NULL;
+                    }
+
 
                 //si la posicion es la ultima
                 }else if(this->ultimo==pos.pos)
@@ -554,17 +565,17 @@ TListaCom TListaCom::operator+(const TListaCom& lista)
 TListaCom TListaCom::operator-(const TListaCom& lista)
 {
     TListaNodo *aux0;
-    TListaCom resultado(*this);
+    TListaCom* resultado = new TListaCom(*this);
     if(lista.EsVacia()==false)
     { 
         aux0=lista.primero;
         while(aux0!=NULL)
         {
-            resultado.BorrarTodos(aux0->e);
+            resultado->BorrarTodos(aux0->e);
             aux0=aux0->siguiente;
         }
     }
-    return resultado;
+    return (*resultado);
 }
 // Sobrecarga del operador salida
 ostream& operator<<(ostream& os,const  TListaCom& p)
