@@ -192,7 +192,7 @@ bool TListaCom::operator==(TListaCom& lista)
     TListaPos miPos = TListaPos(this->primero);
     TListaPos suPos = TListaPos(lista.primero);
     //recorro la lista
-    while(miPos.Siguiente()!=NULL)
+    while(miPos.pos!=NULL)
     {
         //si mi complejo  es distinto de su complejo 
         if(miPos.pos->getE() != suPos.pos->getE())
@@ -223,7 +223,7 @@ bool TListaCom::Buscar(const TComplejo& com)
 {
     TListaPos miPos = TListaPos(this->primero);
     //recorro la lista
-    while(miPos.Siguiente()!=NULL)
+    while(miPos.pos!=NULL)
     {
         //si mi complejo  es igual de su complejo 
         if(miPos.pos->getE() == com)
@@ -368,7 +368,7 @@ bool TListaCom::Borrar(const TComplejo& e)
     if(this->Longitud()!=0)
     {
         TListaPos pos = TListaPos(this->primero);
-        while(pos.Siguiente()!=NULL)
+        while(pos.pos!=NULL)
         {
             //si el elemento que contiene el nodo es igual al elemento que nos han pasado
             if(pos.pos->getE()==e)
@@ -407,6 +407,7 @@ bool TListaCom::Borrar(const TComplejo& e)
                 pos=pos.Siguiente();
             }
         }
+        return false;
     }else
     {
         return false;
@@ -479,10 +480,14 @@ bool TListaCom::Borrar(const TListaPos& pos)
         //si la posicion es la primera
         if(this->primero==pos.pos)
         {
-            //hago que el anterior del sigiente nodo sea NULL
-            pos.pos->siguiente->anterior = NULL;
-            //apunto como primero al siguiente nodo
-            this->primero = pos.pos->siguiente;
+            //si hay mas nodos en la lista
+            if(pos.pos->siguiente!=NULL)
+            {
+                //hago que el anterior del sigiente nodo sea NULL
+                pos.pos->siguiente->anterior = NULL;
+                //apunto como primero al siguiente nodo
+                this->primero = pos.pos->siguiente;
+            }
             //destruyo el nodo
             (*pos.pos).~TListaNodo();
 
@@ -538,10 +543,10 @@ TListaCom TListaCom::operator+(const TListaCom& lista)
         aux->InsertarD(miPos.pos->getE(),aux->ultimo);
         miPos=miPos.Siguiente();
     }
-    while(suPos.pos!=NULL)
+     while(suPos.pos!=NULL)
     {
         aux->InsertarD(suPos.pos->getE(),aux->ultimo);
-        suPos=suPos.Siguiente();
+        suPos=suPos.Siguiente(); 
     }
     return (*aux);
 }
